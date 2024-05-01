@@ -1,340 +1,164 @@
-import os
-
-import requests
-
-from dotenv import load_dotenv
-
-load_dotenv()
-
-
 class Account:
+    def __init__(self, client) -> None:
+        self.client = client
 
     def create(self, data):
-        print(self)
-        if os.environ["sandbox"]:
-            url = 'https://www.devapi.slick-pay.com/api/v2/users/accounts'
-        else:
-            url = 'https://www.prodapi.slick-pay.com/api/v2/users/accounts'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.post(url, headers=headers, data=data)
-        body = res.json()
-        return body
+        url = "users/accounts"
+        response = self.client.post(url_path=url, data=data)
+        return response
 
     def update(self, uid, data):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/accounts/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/accounts/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-
-        res = requests.put(url, headers=headers, json=data)
-
-        return res.json()
+        url = f"users/accounts/{int(uid)}"
+        response = self.client.put(url_path=url, data=data)
+        return response
 
     def list(self, offset, page):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/accounts?offset={int(offset)}&page={int(page)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/accounts?offset={int(offset)}&page={int(page)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.get(url, headers=headers)
-
-        return res.json()
+        url = f"users/accounts?offset={int(offset)}&page={int(page)}"
+        response = self.client.get(url_path=url)
+        return response
 
     def accountDetails(self, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/accounts/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/accounts/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.get(url, headers=headers)
-
-        return res.json()
+        url = f"users/accounts/{int(uid)}"
+        response = self.client.get(url_path=url)
+        return response
 
     def delete(self, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/accounts/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/accounts/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.delete(url, headers=headers)
-
-        return res.json()
+        url = f"users/accounts/{int(uid)}"
+        response = self.client.delete(url_path=url)
+        return response
 
 
 class Contact:
+    def __init__(self, client) -> None:
+        self.client = client
 
     def createContact(self, data):
-        print(self)
-        if os.environ["sandbox"]:
-            url = 'https://www.devapi.slick-pay.com/api/v2/users/contacts'
-        else:
-            url = 'https://www.prodapi.slick-pay.com/api/v2/users/contacts'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.post(url, headers=headers, json=data)
-        body = res.json()
-        return body
+        url = "users/contacts"
+        response = self.client.post(url_path=url, data=data)
+        return response
 
     def contactDetail(self, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/contacts/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/contacts/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.get(url, headers=headers)
-
-        return res.json()
+        url = f"users/contacts/{int(uid)}"
+        response = self.client.get(url_path=url)
+        return response
 
     def listContact(self, offset, page):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/contacts?offset={int(offset)}&page={int(page)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/contacts?offset={int(offset)}&page={int(page)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.get(url, headers=headers)
-
-        return res.json()
+        url = f"users/contacts?offset={int(offset)}&page={int(page)}"
+        response = self.client.get(url_path=url)
+        return response
 
     def updateContact(self, data, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = 'https://www.devapi.slick-pay.com/api/v2/users/contacts/'+str(uid)
-        else:
-            url = 'https://www.prodapi.slick-pay.com/api/v2/users/contacts/'+str(uid)
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.put(url, headers=headers, data=data)
-
-        return res.json()
+        url = f"users/contacts/{str(uid)}"
+        response = self.client.put(url_path=url, data=data)
+        return response
 
     def deleteContact(self, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/contacts/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/contacts/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.delete(url, headers=headers)
-
-        return res.json()
+        url = f"users/contacts/{int(uid)}"
+        response = self.client.delete(url_path=url)
+        return response
 
 
 class Transfer:
+    def __init__(self, client) -> None:
+        self.client = client
 
     def calculateCommission(self, amount):
-        print(self)
-        if os.environ["sandbox"]:
-            url = 'https://www.devapi.slick-pay.com/api/v2/users/transfers/commission'
-        else:
-            url = 'https://www.prodapi.slick-pay.com/api/v2/users/transfers/commission'
-
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        data = {
-            'amount': amount
-        }
-        res = requests.post(url, headers=headers, data=data)
-        return res.json()
+        url = "users/transfers/commission"
+        response = self.client.post(url_path=url, data=amount)
+        return response
 
     def createPayment(self, data):
-        print(self)
-        if os.environ["sandbox"]:
-            url = 'https://www.devapi.slick-pay.com/api/v2/users/transfers'
-        else:
-            url = 'https://www.prodapi.slick-pay.com/api/v2/users/transfers'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.post(url, headers=headers, json=data)
-        # print(res)
-        body = res.json()
-        return body
-        # return res
+        url = "users/transfers"
+        response = self.client.post(url_path=url, data=data)
+        return response
+
 
     def paymentDetail(self, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/transfers/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/transfers/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.get(url, headers=headers)
-
-        return res.json()
+        url = f"users/transfers/{int(uid)}"
+        response = self.client.get(url_path=url)
+        return response
 
     def listTransfer(self, offset, page):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/transfers?offset={int(offset)}&page={int(page)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/transfers?offset={int(offset)}&page={int(page)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.get(url, headers=headers)
-
-        return res.json()
+        url = f"users/transfers?offset={int(offset)}&page={int(page)}"
+        response = self.client.get(url_path=url)
+        return response
 
     def updateTransfer(self, data, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/transfers/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/transfers/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.put(url, headers=headers, json=data)
-
-        return res.json()
+        url = f"users/transfers/{int(uid)}"
+        response = self.client.put(url_path=url, data=data)
+        return response
 
     def deleteTransfer(self, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/transfers/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/transfers/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.delete(url, headers=headers)
-
-        return res.json()
+        url = f"users/transfers/{int(uid)}"
+        response = self.client.delete(url_path=url)
+        return response
 
 
 class PaymentAggregation:
+    def __init__(self, client) -> None:
+        self.client = client
 
     def commission(self, data):
-        print(self)
-        if os.environ["sandbox"]:
-            url = 'https://www.devapi.slick-pay.com/api/v2/users/aggregations/commission'
-        else:
-            url = 'https://www.prodapi.slick-pay.com/api/v2/users/aggregations/commission'
-
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-
-        res = requests.post(url, headers=headers, json=data)
-        return res.json()
+        url = "users/aggregations/commission"
+        response = self.client.post(url_path=url, data=data)
+        return response
 
     def create(self, data):
-        print(self)
-        if os.environ["sandbox"]:
-            url = 'https://www.devapi.slick-pay.com/api/v2/users/aggregations'
-        else:
-            url = 'https://www.prodapi.slick-pay.com/api/v2/users/aggregations'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.post(url, headers=headers, json=data)
-        body = res.json()
-        return body
+        url = "users/aggregations"
+        response = self.client.post(url_path=url, data=data)
+        return response
 
     def details(self, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/aggregations/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/aggregations/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.get(url, headers=headers)
-
-        return res.json()
+        url = f"users/aggregations/{int(uid)}"
+        response = self.client.get(url_path=url)
+        return response
 
     def list(self, offset, page):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/aggregations?offset={int(offset)}&page={int(page)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/aggregations?offset={int(offset)}&page={int(page)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.get(url, headers=headers)
-
-        return res.json()
+        url = f"users/aggregations?offset={int(offset)}&page={int(page)}"
+        response = self.client.get(url_path=url)
+        return response
 
     def update(self, data, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/aggregations/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/aggregations/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.put(url, headers=headers, json=data)
-        body = res.json()
-        return body
+        url = f"users/aggregations/{int(uid)}"
+        response = self.client.put(url_path=url, data=data)
+        return response
 
     def delete(self, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/aggregations/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/aggregations/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.delete(url, headers=headers)
-        body = res.json()
-        return body
+        url = f"users/aggregations/{int(uid)}"
+        response = self.client.delete(url_path=url)
+        return response
 
 
 class InvoiceTransfer:
+    def __init__(self, client) -> None:
+        self.client = client
 
     def calculateCommissionInvoice(self, amount):
-        print(self)
-        if os.environ["sandbox"]:
-            url = 'https://www.devapi.slick-pay.com/api/v2/users/invoices/commission'
-        else:
-            url = 'https://www.prodapi.slick-pay.com/api/v2/users/invoices/commission'
-
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        data = {
-            'amount': amount
-        }
-        res = requests.post(url, headers=headers, data=data)
-        return res.json()
+        url = "users/invoices/commission"
+        response = self.client.post(url_path=url, data=data)
+        return response
 
     def createInvoice(self, data):
-        print(self)
-        if os.environ["sandbox"]:
-            url = 'https://www.devapi.slick-pay.com/api/v2/users/invoices'
-        else:
-            url = 'https://www.prodapi.slick-pay.com/api/v2/users/invoices'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.post(url, headers=headers, json=data)
-        body = res.json()
-        return body
+        url = "users/invoices"
+        response = self.client.post(url_path=url, data=data)
+        return response
 
     def InvoiceDetail(self, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/invoices/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/invoices/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.get(url, headers=headers)
-
-        return res.json()
+        url = f"users/invoices/{int(uid)}"
+        response = self.client.get(url_path=url)
+        return response
 
     def listInvoice(self, offset, page):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/invoices?offset={int(offset)}&page={int(page)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/invoices?offset={int(offset)}&page={int(page)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.get(url, headers=headers)
-
-        return res.json()
+        url = f"users/invoices?offset={int(offset)}&page={int(page)}"
+        response = self.client.get(url_path=url)
+        return response
 
     def updateInvoice(self, data, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = 'https://www.devapi.slick-pay.com/api/v2/users/invoices/'+str(uid)
-        else:
-            url = 'https://www.prodapi.slick-pay.com/api/v2/users/invoices/'+str(uid)
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.put(url, headers=headers, json=data)
-
-        return res.json()
+        url = f"users/invoices/{str(uid)}"
+        response = self.client.put(url_path=url, data=data)
+        return response
 
     def deleteInvoice(self, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/users/invoices/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/users/invoices/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.delete(url, headers=headers)
-
-        return res.json()
+        url = f"users/invoices/{int(uid)}"
+        response = self.client.delete(url_path=url)
+        return response
