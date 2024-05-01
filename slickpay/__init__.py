@@ -4,4 +4,4 @@ from slickpay.user import Contact
 from slickpay.user import Transfer
 from slickpay.user import PaymentAggregation
 from slickpay.user import InvoiceTransfer
-
+from slickpay.client import SlickPayApi
