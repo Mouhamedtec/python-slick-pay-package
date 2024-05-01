@@ -1,64 +1,28 @@
-import os
-
-import requests
-from dotenv import load_dotenv
-
-load_dotenv()
-
-
 class InvoiceTransferMerchant:
+    def __init__(self, client) -> None:
+        self.client = client
 
     def createInvoice(self, data):
-        print(self)
-        if os.environ["sandbox"]:
-            url = 'https://www.devapi.slick-pay.com/api/v2/merchants/invoices'
-        else:
-            url = 'https://www.prodapi.slick-pay.com/api/v2/merchants/invoices'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.post(url, headers=headers, json=data)
-        body = res.json()
-        return body
+        url = "merchants/invoices"
+        response = self.client.post(url_path=url, data=data)
+        return response
 
     def invoiceDetail(self, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/merchants/invoices/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/merchants/invoices/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.get(url, headers=headers)
-
-        return res.json()
+        url = f"invoices/{int(uid)}"
+        response = self.client.get(url_path=url)
+        return response
 
     def listInvoice(self, offset, page):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/merchants/invoices?offset={int(offset)}&page={int(page)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/merchants/invoices?offset={int(offset)}&page={int(page)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.get(url, headers=headers)
-
-        return res.json()
+        url = f"merchants/invoices?offset={int(offset)}&page={int(page)}"
+        response = self.client.get(url_path=url)
+        return response
 
     def updateInvoice(self, data, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/merchants/invoices/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/merchants/invoices/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.put(url, headers=headers, json=data)
-
-        return res.json()
+        url = f"merchants/invoices/{int(uid)}"
+        response = self.client.put(url_path=url, data=data)
+        return response
 
     def deleteInvoice(self, uid):
-        print(self)
-        if os.environ["sandbox"]:
-            url = f'https://www.devapi.slick-pay.com/api/v2/merchants/invoices/{int(uid)}'
-        else:
-            url = f'https://www.prodapi.slick-pay.com/api/v2/merchants/invoices/{int(uid)}'
-        headers = {"Authorization": f'{str(os.environ["public_key"])}', "Accept": "application/json"}
-        res = requests.delete(url, headers=headers)
-
-        return res.json()
+        url = f"merchants/invoices/{int(uid)}"
+        response = self.client.delete(url_path=url)
+        return response
