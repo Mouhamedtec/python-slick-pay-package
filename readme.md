@@ -24,19 +24,39 @@ In order to use our API, you will need to :
 Visite [our website ](https://slick-pay.com/) and create an account. If you are merchant you have to add your satim information like username and password
 #### 2. Get api's key
 After logging in, from your dashboard, you will able to get your PUBLIC_KEY.
-#### 3. Configure through environment variables
+#### 3. Configure API Client
+```python
+from slickpay import slickPayApi
+
+env = "dev"
+api_client = slickPayApi()
+api_client.config(environment=env, public_key="PUBLIC_KEY")
+```
+#### 4. Configure through environment variables
 Create a .env file and inside your .env file create a variable like this:
 ```python
   public_key= your_public_key
-  sandbox= True or False
 ```
+Import environment variables
+```python
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+from slickpay import slickPayApi
+
+env = "prod"
+api_client = slickPayApi()
+api_client.config(environment=env, public_key=os.environ["public_key"])
+```
+
 # How to use?
 ## Concerning merchant account
 ## InvoiceTransferMerchant
 ### Create Invoice
 ```python
 from slickpay import InvoiceTransferMerchant
-    invoiceMerchant = InvoiceTransferMerchant()
+    invoiceMerchant = InvoiceTransferMerchant(client=api_client)
     data = 
     {
         'amount': 10000,
@@ -80,7 +100,7 @@ from slickpay import InvoiceTransferMerchant
 ### Create
 ```python
 from slickpay import Account
-    userAccount = Account()
+    userAccount = Account(client=api_client)
     data = {
         "title"    : "Lorem Ipsum",
         "lastname" : "Lorem",
@@ -115,7 +135,7 @@ from slickpay import Account
 ### Create Contact
 ```python
 from slickpay import Contact
-    userContact = Contact()
+    userContact = Contact(client=api_client)
     data = {
         "title"    : "Lorem Ipsum",
         "lastname" : "Lorem",
@@ -151,7 +171,7 @@ from slickpay import Contact
 ### Calculate Commission
 ```python
 from slickpay import Transfer
-    userTransfer = Transfer()
+    userTransfer = Transfer(client=api_client)
     res=userTransfer.calculateCommission(amount)
     return res
 ```
@@ -189,7 +209,7 @@ from slickpay import Transfer
 ### Calculate Commission
 ```python
 from slickpay import PaymentAggregation
-    userPaymentAggregation = PaymentAggregation()
+    userPaymentAggregation = PaymentAggregation(client=api_client)
     data = {
         "type": "percentage",
         "total": 10000,
@@ -266,7 +286,7 @@ from slickpay import PaymentAggregation
 ### Calculate Commission
 ```python
 from slickpay import InvoiceTransfer
-    userInvoiceTransfer = InvoiceTransfer()
+    userInvoiceTransfer = InvoiceTransfer(client=api_client)
     res=userInvoiceTransfer.calculateCommissionInvoice(amount)
     return res
 ```
