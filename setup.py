@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='slick-pay',
     packages=['slick-pay'],  # Chose the same as "name"
-    version='0.3',  # Start with a small number and increase it with every change you make
+    version='0.4',  # Start with a small number and increase it with every change you make
     license='MIT',  # Chose a license from here: https://help.github.com/articles/licensing-a-repository
     description='slick-pay Gateway (Python Library)',  # Give a short description about your library
     author='Rahim',  # Type in your name
